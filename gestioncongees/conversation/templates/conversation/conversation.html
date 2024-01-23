@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Conversations{% endblock %}
+
+{% block content %}
+<div class="w-3/5 mx-auto p-6 rounded-xl  overflow-x-auto shadow-md">
+
+<h1 class="mb-6 text-3xl">Conversations</h1>
+
+<div class="space-y-6">
+    <div class="pb-4 bg-white dark:bg-gray-900">
+        <label for="filterName" class="sr-only">Search</label>
+        <div class="relative mt-1">
+            <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input type="text" id="filterName" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
+        </div>
+    </div>
+    {% for conversation in conversations %}
+    <div class="py-1">
+        {% if request.user.username == 'chehir' %}
+        <a href="{% url 'conversation:deleteconv' conversation.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline float-right px-5 py-14"><svg xmlns="http://www.w3.org/2000/svg" fill="#ff0000" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/></svg></a>
+        {% endif %}
+        <a href="{% url 'conversation:detail' conversation.id %}">
+            <div class="p-6 flex bg-gray-100 rounded-xl">
+                <div class="pr-6">
+                    <img src="https://icon-library.com/images/user-icon-png/user-icon-png-6.jpg" class="w-20 rounded-xl">
+                </div>
+
+                <div>
+                    {% for member in conversation.members.all %}
+                        {% if member != request.user %}
+                            <p class="mb-4"><strong>{{ member.username }}</strong> | {{ conversation.modified_at }}</p>
+                            <p class="text-blue-500">Conversation details
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                </svg>
+                
+                            </p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

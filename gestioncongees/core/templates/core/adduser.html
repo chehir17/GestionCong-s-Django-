@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Ajouter Utilisateurs{% endblock %}
+
+{% block content %}
+<div class="w-3/5 mx-auto p-6 rounded-xl  overflow-x-auto shadow-md">
+    <h2 class="mb-2 text-2xl">{{ title }}</h2>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User name </label>
+            {{ form.username }}
+        </div>
+        <div class="mb-3">
+            <label class="inline-block mb-2">First Name</label><br>
+            {{ form.first_name }}
+        </div>
+        <div class="mb-3">
+            <label class="inline-block mb-2">Last Name</label><br>
+            {{ form.last_name }}
+        </div>
+        <div class="mb-3">
+            <label class="inline-block mb-2">Email</label><br>
+            {{ form.email }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">Password</label><br>
+            {{ form.password1 }}
+        </div>
+
+        <div class="mb-3">
+            <label class="inline-block mb-2">Repeat password</label><br>
+            {{ form.password2 }}
+        </div>
+        <span hidden>{{form.sold}}</span>
+        <span hidden>{{form.role}}</span>
+
+        {% if form.errors or form.non_field_errors %}
+            <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <button class="py-2 px-6 text-sm bg-teal-500 hover:bg-teal-700 rounded-md text-white">+ Ajouter</button>
+    </form>
+</div>
+{% endblock %}
+

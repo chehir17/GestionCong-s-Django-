@@ -1,0 +1,134 @@
+{% extends 'core/base.html' %}
+
+{% block title %} List des Demande {% endblock %}
+
+{% block content %}
+<div class="w-4/5 py-5  mx-auto float-right">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-5 py-5">
+   
+       <div class="pb-4 bg-white dark:bg-gray-900">
+           <label for="filterName" class="sr-only">Search</label>
+           <div class="relative mt-1">
+               <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+                   <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                   </svg>
+               </div>
+               <input type="text" id="filterName" class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Filter username...">
+           </div>
+       </div>
+       {% if request.user.username == 'chehir' %}
+       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+               <tr>
+                   <th scope="col" class="p-4">
+                       <div class="flex items-center">
+                           <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                           <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                       </div>
+                   </th>
+                   <th scope="col" class="px-6 py-3">
+                       Demandeur
+                   </th>
+                   <th scope="col" class="px-6 py-3">
+                       Sujet
+                   </th>
+                   <th scope="col" class="px-6 py-3">
+                       Duré (j)
+                   </th>
+                   <th scope="col" class="px-6 py-3">
+                       sold congee disponible (j)
+                   </th>
+                   <th scope="col" class="px-6 py-3">
+                       Certificat medical
+                   </th>
+                   <th scope="col" class="px-6 py-3">
+                       Statut
+                   </th>
+                   <th scope="col" class="px-6 py-3">
+                       Date
+                   </th>
+                   <th scope="col" class="px-6 py-3">
+                       Actions
+                   </th>
+               </tr>
+           </thead>
+           <tbody>
+               {% for cong in congees %}
+               <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                   <td class="w-4 p-4">
+                       <div class="flex items-center">
+                           <input id="checkbox-table-3" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                           <label for="checkbox-table-3" class="sr-only">checkbox</label>
+                       </div>
+                   </td>
+   
+                   <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                       {{ cong.demandeur.first_name}}  {{ cong.demandeur.last_name}}
+                   </td>
+                   <td class="px-6 py-4">
+                       {{cong.sujet}}
+                   </td>
+                   <td class="px-6 py-4">
+                       {{cong.dure}}
+                   </td>
+                   <td class="px-6 py-4">
+                       {{cong.demandeur.sold}}
+                   </td>
+                   <td class="px-6 py-4">
+                       {{cong.certif}}    
+                   </td>
+                   <td class="px-6 py-4 {% if cong.status != False %} text-green-600 {% else %} text-yellow-600 {% endif %} font-bold">
+                        {% if cong.status != False  %}
+                        {{'Approuver'}}
+                        {% else %}
+                        {{'Attente'}}
+                        {% endif %}
+                   </td>
+                   <td class="px-6 py-4">
+                    {{cong.created_at}}    
+                   </td>
+                   <td class="px-6 py-4">
+                       <a href="{% url 'demandeCongee:editstatus' cong.id %}" class="font-medium text-green-600 dark:text-green-500 hover:underline {% if cong.status != False %} hidden {% endif %}" >Approuver</a>
+                       <a href="{% url 'demandeCongee:delete' cong.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Remove</a>
+                   </td>
+               </tr>
+               {% endfor %}
+           </tbody>
+       </table>
+       {% endif %}
+       {% for conge in congees %}
+       {% if request.user.username != 'chehir' and request.user.username == conge.demandeur.username %}
+       <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+           <li class="py-3 sm:py-4">
+                 <div class="flex items-center">
+                    <div class="flex-1 min-w-0 ms-4">
+                       <p class="text-lg font-medium text-gray-900 truncate dark:text-white">
+                            Sujet: {{conge.sujet}}
+                       </p>
+                       <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                             Dure: {{conge.dure}} Jours
+                       </p>
+                    </div>
+                    <div class="inline-flex items-center {% if conge.status != False %} text-green-600 {% else %} text-yellow-600 {% endif %} text-base font-semibold text-gray-900 dark:text-white">
+                      {% if conge.status != False  %}
+                      {{'Approuver'}}
+                      {% else %}
+                      {{'En Attente'}}
+                      {% endif %}
+                    </div>
+                 </div>
+                 <a href="{% url 'demandeCongee:edit' conge.id %}" class="inline-block mt-6 px-2 1text-sm font-semibold bg-teal-500 text-white rounded-md {% if conge.status != False %} hidden {% endif %}">Edit Demande</a>
+                </li>
+        </ul>
+       </div>
+       {% endif %}
+       {% endfor %}
+   </div>
+</div>
+{% endblock %}
+
+
+
+
