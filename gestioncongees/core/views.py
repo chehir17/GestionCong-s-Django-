@@ -36,7 +36,7 @@ def getUser(request):
 @login_required
 def adduser(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = SignupForm(request.POST,request.FILES)
             
         if form.is_valid():
             form.save()
@@ -72,7 +72,7 @@ def delete(request, pk):
     userd = get_object_or_404(CustomUser, pk=pk)
     userd.delete()
 
-    return redirect('core:listUser')
+    return redirect('/listUser')
 
 
 

@@ -22,23 +22,26 @@
     {% for conversation in conversations %}
     <div class="py-1">
         {% if request.user.username == 'chehir' %}
-        <a href="{% url 'conversation:deleteconv' conversation.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline float-right px-5 py-14"><svg xmlns="http://www.w3.org/2000/svg" fill="#ff0000" height="16" width="14" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/></svg></a>
+        <a href="{% url 'conversation:deleteconv' conversation.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline float-right px-5 py-14"><svg xmlns="http://www.w3.org/2000/svg" fill="#ff0000" height="18" width="16" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/></svg></a>
         {% endif %}
         <a href="{% url 'conversation:detail' conversation.id %}">
             <div class="p-6 flex bg-gray-100 rounded-xl">
                 <div class="pr-6">
-                    <img src="https://icon-library.com/images/user-icon-png/user-icon-png-6.jpg" class="w-20 rounded-xl">
+                    {% for member in conversation.members.all %}
+                    {% if member != request.user %}
+                    <img src="{{member.photo.url}}" class="w-16 md:w-32 max-w-full max-h-full rounded-xl">
+                    {% endif %}
+                    {% endfor %}
                 </div>
 
                 <div>
                     {% for member in conversation.members.all %}
                         {% if member != request.user %}
-                            <p class="mb-4"><strong>{{ member.username }}</strong> | {{ conversation.modified_at }}</p>
-                            <p class="text-blue-500">Conversation details
+                            <p class="mb-6"><strong class="text-xl">{{ member.username }}</strong> | {{ conversation.modified_at }}</p>
+                            <p class="text-blue-700 text-xl">Conversation details
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                                 </svg>
-                
                             </p>
                         {% endif %}
                     {% endfor %}
