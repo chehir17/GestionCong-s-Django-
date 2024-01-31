@@ -55,7 +55,7 @@ def adduser(request):
 def edit(request, pk):
     editc = get_object_or_404(CustomUser, pk=pk)
     if request.method == 'POST':
-        form = EditUserForm(request.POST, instance=editc)
+        form = EditUserForm(request.POST,request.FILES, instance=editc)
         if form.is_valid():
             editc.save()
             return redirect('/listUser/')

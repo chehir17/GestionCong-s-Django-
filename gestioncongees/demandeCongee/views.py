@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 from core.models import CustomUser
 
 # Create your views here.
-
+@login_required
 def ListConges(request):
-    congees = Cangees.objects.all()
+    congees = Cangees.objects.all().order_by('-created_at')
     return render(request, 'demandeCongee/listCongees.html',{
          'congees' : congees
     })
@@ -26,7 +26,7 @@ def d_Congee(request,pk):
            if cong.dure <=  user_id.sold:
               cong.demandeur = request.user
               cong.save()
-              return redirect('/index/')
+              return redirect('/demande/listc/')
            else:
               alert_message = "vous avez deppaser votre sold des congées !"
     else: 
@@ -66,12 +66,18 @@ def delete(request, pk):
 
 
 @login_required
-def editstatus(request,pk):
+def editstatus(request,pk,pk_demandeur):
     editstatus = get_object_or_404(Cangees, pk=pk)
+    editsold = get_object_or_404(CustomUser, id = pk_demandeur )
+
     if request.method == 'POST':
         editstatus.status = True
         editstatus.save()
-        return redirect('/')
+
+        newsold = editsold.sold - editstatus.dure
+        editsold.sold = newsold 
+        editsold.save()
+        return redirect('/demande/listc/')
 
 
     return render(request, 'demandeCongee/dCongee.html', {

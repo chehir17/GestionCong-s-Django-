@@ -3,7 +3,7 @@
 {% block title %} List des Demande {% endblock %}
 
 {% block content %}
-<div class="w-4/5 py-5  mx-auto float-right">
+<div class="w-4/5 py-5  mx-auto float-right ">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg px-5 py-5">
    
        <div class="pb-4 bg-white dark:bg-gray-900">
@@ -89,7 +89,7 @@
                     {{cong.created_at}}    
                    </td>
                    <td class="px-6 py-4">
-                       <a href="{% url 'demandeCongee:editstatus' cong.id %}" class="font-medium text-green-600 dark:text-green-500 hover:underline {% if cong.status != False %} hidden {% endif %}" >Approuver</a>
+                       <a href="{% url 'demandeCongee:editstatus' cong.id cong.demandeur.id %}" class="font-medium text-green-600 dark:text-green-500 hover:underline {% if cong.status != False %} hidden {% endif %}" >Approuver</a>
                        <a href="{% url 'demandeCongee:delete' cong.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Remove</a>
                    </td>
                </tr>

@@ -37,6 +37,9 @@
                        Duré (j)
                    </th>
                    <th scope="col" class="px-6 py-3">
+                       D.creation
+                   </th>
+                   <th scope="col" class="px-6 py-3">
                        Etat
                    </th>
                    <th scope="col" class="px-6 py-3">
@@ -62,6 +65,9 @@
                    </td>
                    <td class="px-6 py-4">
                        {{tach.duree}}
+                   </td>
+                   <td class="px-6 py-4">
+                    {{tach.created_at}}
                    </td>
                    <td class="px-6 py-4 {% if tach.etat == 'open' %} text-red-600 {% elif tach.etat == 'encours'  %} text-yellow-600  {% else %} text-green-600 {% endif %} font-bold">
                        {{tach.etat}}

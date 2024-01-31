@@ -16,4 +16,5 @@ class Tache(models.Model):
     titre = models.CharField(max_length=255)
     duree = models.IntegerField()
     etat = models.CharField(choices=STATUS_CHOICES,max_length=10, default="open")
+    created_at = models.DateTimeField(auto_now_add=True)
 

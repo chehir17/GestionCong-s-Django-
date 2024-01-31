@@ -7,7 +7,7 @@ from .models import Tache
 
 # Create your views here.
 def ListTache(request):
-    taches = Tache.objects.all()
+    taches = Tache.objects.all().order_by('-created_at')
     
     return render(request, 'tache/listTaches.html',{
          'taches' : taches
