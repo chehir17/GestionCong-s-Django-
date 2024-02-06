@@ -62,10 +62,10 @@
    </div>
    <div class="flow-root">
          <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-            <div class="p-3 bg-gray-100 rounded-md">
-            <li class="py-3 sm:py-4">
+            <div class="p-2 bg-gray-100 rounded-md">
                {% for tache in nbtaches %}
-                 {% if tache.user_id == request.user %}
+             <li class="py-3 sm:py-4">            
+                 {% if tache.user_id.id == request.user.id %}
                   <div class="flex items-center">
                      <div class="flex-1 min-w-0 ms-4">
                         <p class="text-md font-bold text-gray-900 truncate dark:text-white">
@@ -82,10 +82,9 @@
                   <a href="{% url 'core:editstatus' tache.id %}" class="inline-block mt-2 px-2 1text-sm font-semibold bg-teal-500 text-white rounded-md ">Approuver</a>
                   {% else %}
                   <p class="text-gray-800 font-bold">non tache affecter !</p>
-                 {% endif %}
-               {% endfor %}
-
             </li>
+            {% endif %}
+            {% endfor %}
             </div>
          </ul>
    </div>

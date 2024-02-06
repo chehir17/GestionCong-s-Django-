@@ -22,16 +22,16 @@
     {% for conversation in conversations %}
     <div class="py-1">
         {% if request.user.username == 'chehir' %}
-        <a href="{% url 'conversation:deleteconv' conversation.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline float-right px-5 py-14"><svg xmlns="http://www.w3.org/2000/svg" fill="#ff0000" height="18" width="16" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/></svg></a>
+        <a href="{% url 'conversation:deleteconv' conversation.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline float-right px-5 py-20"><svg xmlns="http://www.w3.org/2000/svg" fill="#ff0000" height="18" width="16" viewBox="0 0 440 500"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.7 23.7 0 0 0 -21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0 -16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/></svg></a>
         {% endif %}
         <a href="{% url 'conversation:detail' conversation.id %}">
             <div class="p-6 flex bg-gray-100 rounded-xl">
                 <div class="pr-6">
-                    <!-- {% for member in conversation.members.all %}
+                    {% for member in conversation.members.all %}
                     {% if member != request.user %}
-                    <img src="{{member.photo.url}}" class="w-16 md:w-32 max-w-full max-h-full rounded-xl">
+                    <img src="{{member.photo.url}}" alt="errors" class="w-16 md:w-32 max-w-full max-h-full rounded-xl">
                     {% endif %}
-                    {% endfor %} -->
+                    {% endfor %}
                 </div>
 
                 <div>

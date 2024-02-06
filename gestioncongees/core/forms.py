@@ -24,7 +24,7 @@ class LoginForm(AuthenticationForm):
 class SignupForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('username','first_name','last_name', 'email','password1', 'password2','sold','role')
+        fields = ('username','first_name','last_name', 'email','photo','password1', 'password2','sold','role')
     
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
@@ -46,9 +46,9 @@ class SignupForm(UserCreationForm):
         'class' : INPUT_CLASSES
     }))
 
-    # photo = forms.FileInput(attrs={
-    #     'class': INPUT_CLASSES
-    # }),
+    photo = forms.FileInput(attrs={
+        'class': INPUT_CLASSES
+    }),
 
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Your password',
@@ -67,7 +67,7 @@ class SignupForm(UserCreationForm):
 class EditUserForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('username','first_name','last_name', 'email', 'password1', 'password2')
+        fields = ('username','first_name','last_name', 'email','photo', 'password1', 'password2')
     
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
@@ -89,9 +89,9 @@ class EditUserForm(forms.ModelForm):
         'class' : INPUT_CLASSES
     }))
 
-    # photo = forms.FileInput(attrs={
-    #     'class': INPUT_CLASSES
-    # }),
+    photo = forms.FileInput(attrs={
+        'class': INPUT_CLASSES
+    }),
 
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Your password',

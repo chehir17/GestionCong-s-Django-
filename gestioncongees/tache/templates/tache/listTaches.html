@@ -76,7 +76,7 @@
                    </td>
                    <td class="px-6 py-4">
                        <a href="{% url 'tache:editTache' tach.id %}" class="font-medium text-green-600 dark:text-green-500 hover:underline  {% if tach.etat == 'terminer' %} hidden {% endif %}" >Edit</a>
-                       <a href="{% url 'tache:deleteTache' tach.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Remove</a>
+                       <a href="{% url 'tache:deleteTache' tach.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Supprimer</a>
                    </td>
                </tr>
                {% endfor %}

@@ -37,7 +37,7 @@
                        Duré (j)
                    </th>
                    <th scope="col" class="px-6 py-3">
-                       sold congee disponible (j)
+                       sold congé disponible (j)
                    </th>
                    <th scope="col" class="px-6 py-3">
                        Certificat medical
@@ -90,7 +90,7 @@
                    </td>
                    <td class="px-6 py-4">
                        <a href="{% url 'demandeCongee:editstatus' cong.id cong.demandeur.id %}" class="font-medium text-green-600 dark:text-green-500 hover:underline {% if cong.status != False %} hidden {% endif %}" >Approuver</a>
-                       <a href="{% url 'demandeCongee:delete' cong.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Remove</a>
+                       <a href="{% url 'demandeCongee:delete' cong.id %}" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Supprimer</a>
                    </td>
                </tr>
                {% endfor %}
